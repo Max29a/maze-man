@@ -5,7 +5,8 @@ import * as Key from './KeyValues';
 
 function App() {
   
-  const [keyDown, setKeyDown] = useState('');
+  const [keyDown, setKeyDown] = useState<string>('');
+  const [dirShown, setDirShown] = useState<string>('');
 
   const handleKeyPress = (event:any) => {
     let keyWasFound = false;
@@ -13,18 +14,22 @@ function App() {
       case Key.UP_ARROW:
       case Key.UP_KEY:
         keyWasFound = true;
+        setDirShown('⬆️');
         break;
       case Key.DOWN_ARROW:
       case Key.DOWN_KEY:
-          keyWasFound = true;
-          break;
+        setDirShown('⬇️');
+        keyWasFound = true;
+        break;
       case Key.LEFT_ARROW:
       case Key.LEFT_KEY:
-          keyWasFound = true;
+        setDirShown('⬅️');
+        keyWasFound = true;
         break;
       case Key.RIGHT_ARROW:
       case Key.RIGHT_KEY:
-          keyWasFound = true;
+        setDirShown('➡️');
+        keyWasFound = true;
         break;
       default:
         break;
@@ -37,7 +42,7 @@ function App() {
   return (
     <div className="App" onKeyDown={handleKeyPress} tabIndex={0}>
       <header className="App-header">
-        You pressed: {keyDown}
+        Navigate with the keyboard: {dirShown}
       </header>
     </div>
   );
