@@ -5,6 +5,7 @@ import ControlPanel from './ControlPanel.react';
 import {useState, useCallback, useEffect} from 'react';
 import * as Constants from './Constants';
 import {Location} from './AppTypes';
+import * as Helper from './Helpers';
 
 function App() {
   
@@ -72,12 +73,19 @@ function App() {
   }, [personLocation])
 
   const onNewMaze = useCallback((size: number) => {
-    console.log(`Should create new maze: ${size}`);
-  },[]);
+    if (size > 0 && size < 100) {
+      const [mazeData, startPos] = Helper.createMaze(size);
+      setLasLoc(startPos);
+      setPersonLocation(startPos);
+      setMaze(mazeData);
+    }
+  },[setMaze, setPersonLocation]);
 
   return (
     <div className="App" onKeyDown={handleKeyPress} tabIndex={0}>
       <ControlPanel currentLocation={personLocation} onNewMaze={onNewMaze} />
+      <br/><br/>
+      Owen you are the x!
       <header className="App-header">
         <Maze mazeArray={maze} />
       </header>
